@@ -1,0 +1,47 @@
+<h3>
+  Artist Information
+</h3>
+<!--
+	<div>
+		{{artist | json}}
+	</div>
+-->
+
+<div class="artist-info" *ngIf="artist">
+	<img [src]="artist.images[1].url">
+	<div>
+		<span class="artist-name">{{artist.name}}</span>
+		<div>
+			<span class="artist-type">{{artist.type}}</span>
+			<span class="followers">{{artist.followers.total}}</span>
+		</div>
+	</div>
+</div>
+
+<div *ngIf="topTracks">
+	<h3>Top Tracks</h3>
+
+	<div class="top-tracks" *ngFor="let track of topTracks.tracks">
+		<div class="track">
+			<i class="fas fa-play" (click)="playUri(track.uri)"></i>
+			<span class="name">{{ track.name }}</span>
+			<audio controls *ngIf="track.preview_url">
+				<source [src]="track.preview_url" type="audio/mpeg">
+			</audio>
+		</div>
+	</div>
+</div>
+
+<div *ngIf="albums">
+	<!--{{albums | json}}-->
+	<h3>Albums</h3>
+	
+	<div class="albums">
+		<div class="album" *ngFor="let album of albums.items">
+			<!-- <img class="album-image" [src]="album.images[2].url"> -->
+			<span class="name">{{ album.name }}</span>
+		</div>
+	</div>
+
+</div>
+

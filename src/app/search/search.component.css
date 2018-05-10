@@ -1,0 +1,18 @@
+#keyword{
+    width: 270px;
+    text-align: center;
+}
+.filter-select{
+	padding-left: 0;
+    border: 1px solid #ccc;
+    width: 270px;
+    border-top: none;
+}
+.filter-select-list{
+	display: flex;
+    align-items: center;
+}
+.artist-name{
+    padding-left: 20px;
+    margin-bottom: 0;
+}

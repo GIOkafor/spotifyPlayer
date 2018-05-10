@@ -1,0 +1,16 @@
+<section class="filter-wrapper">
+  <div class="keyword-wrapper">
+    <input [formControl]="inputField" type="text" id="keyword"  
+      placeholder="Search for Artists..." autofocus>
+  </div>
+  <ul class="filter-select" *ngIf="searchResult.length !== []">
+    <div *ngFor="let result of searchResult">
+      <a routerLink="/artist/{{result.id}}">
+        <span class="filter-select-list">
+          <img src="{{result.images['1']?.url}}" alt="{{result.name}}" width="50" height="50">
+          <p class="artist-name">{{result.name}}</p>
+        </span>
+      </a>
+    </div>
+  </ul> 
+</section>
