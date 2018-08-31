@@ -6,19 +6,18 @@ import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class SearchService {
-  
+
   private clientId = '8675db4b14744bf7947e23ce79bafd6d';
   private client_secret = 'fe646f8f3bc94341b7e067ea378ef2f9';
   private artistUrl = 'https://api.spotify.com/v1/search?type=artist&limit=10&client_id=' +this.clientId+'&q=';
   private authCode = 'BQCE64KrEj1WL2Z__7DRMNQGTfW08D3EeGngO9G-rWsQD_Fadm1aB-6fuI8sOBaiG3mpJQkrXZ5Kf33ka0HWXNYBcYjNlhGkYFQhIEUQLvMlG8T2kbXstpgGGVE4c2gvfvPw-tQYW_CFcxe2YB4KYc5T5lViH6IcDH4';
-  public httpOptions = {
-	  headers: new HttpHeaders({
-	    'Content-Type':  'application/json',
-	    'Authorization': 'Bearer ' + (this.authCode)
-	  })
-	};
+  public httpOptions:any;
+
   constructor(
-  	private http: HttpClient) { }
+  	private http: HttpClient) {
+      this.authAccount();
+      console.log("Authcode via constructor function is: ", this.authCode);
+    }
 
   //finds artists with name
   searchArtists(searchTerm){
@@ -55,9 +54,20 @@ export class SearchService {
   }
 
   authAccount(){
-  	let url = 'https://accounts.spotify.com/authorize?client_id=8675db4b14744bf7947e23ce79bafd6d&redirect_uri=http://localhost:4200&scope=user-read-private%20user-read-email&response_type=token&state=123';
+  	let url = 'https://us-central1-revmuzik-mvp.cloudfunctions.net/spotify-authorize';
 
-  	return this.http.get(url)
-  		.subscribe(res => console.log(res));
+  	return this.http.get(url, {responseType: 'text'})
+  		.subscribe(res => {
+        console.log("Access code is: ", res);
+        this.authCode = res;
+
+        let authToken = 'Bearer ' + res;
+
+        this.httpOptions = {
+      	  headers: new HttpHeaders({
+      	    'Authorization': authToken
+      	  })
+      	};
+      });
   }
 }
