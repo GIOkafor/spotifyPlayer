@@ -21,12 +21,12 @@ export class ArtistComponent implements OnInit {
   ngOnInit() {
   	this.route.paramMap
   		.switchMap((params: ParamMap) => this.searchSvc.getArtist(params.get('id')))
-  			.subscribe((res: artistResponse) => {
+  			.subscribe((res: any) => {
   				this.artist = res;
   				this.getAlbums(res.id);
   				this.getTopTracks(res.id);
   			})
-  	
+
   }
 
   getArtist(id){

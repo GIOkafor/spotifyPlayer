@@ -18,10 +18,10 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
   	this.inputField.valueChanges
   		.subscribe(inputField => this.searchSvc.searchArtists(inputField)
-  		.subscribe((res: Response) => {
-  			if (res.status === 400) { 
+  		.subscribe((res: any) => {
+  			if (res.status === 400) {
   				this.searchResult = [];
-  				return; 
+  				return;
   			}
   			else { this.searchResult = res.artists.items; console.log(res.artists.items); }
   		}));
